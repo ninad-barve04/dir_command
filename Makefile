@@ -1,5 +1,5 @@
-dircmd: main.o dir_entry.o linked_list.o
-	gcc -g main.o dir_entry.o linked_list.o -o dircmd
+dirx: main.o dir_entry.o linked_list.o
+	gcc -g main.o dir_entry.o linked_list.o -o dirx
 
 main.o: main.c
 	gcc -c -g main.c

@@ -21,4 +21,4 @@ node *create_directory_node(char *file_name);
 void append_at_next(List *list, node *addnode);
 void append_at_branch(List *list, node *addnode);
 void display_tree(List treelist, int *lvl);
-
+void display_recursively(List treelist);

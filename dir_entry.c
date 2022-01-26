@@ -87,10 +87,18 @@ void list_dir_content(char *dirname) {
     entity = readdir(dir);
 
     while (entity != NULL) {
-        printf("%d\t%s\n", entity->d_type, entity->d_name);
-
+        if (strcmp(entity->d_name, "..") == 0) {
+            entity = readdir(dir);
+            continue;
+        } else if (strcmp(entity->d_name, ".") == 0) {
+            printf("%s:\n", entity->d_name);
+        } else {
+            printf("%s\t", entity->d_name);
+        }
+        
         entity = readdir(dir);
     }
+    printf("\n");
 
     closedir(dir);
     return;

@@ -97,8 +97,48 @@ void display_tree(List treelist ,int *lvl) {
         }
         br= br->next;
     }
+    
 
     *lvl = *lvl -1;
 
 }
+
+
+void display_recursively(List list) {
+    node *head = list;
+    node *bnode = NULL;
+    if (head == NULL) {
+        printf("Empty tree\n");
+        return;
+    }
+    
+    //printf("Name: %s\n", head->name);
+   
+    head = list;
+    node *hptr = head->branch;
+    
+    printf("./%s:\n", list->name);
+    while (hptr != NULL) {
+        printf("%s\t", hptr->name);
+        hptr = hptr->next;
+    }
+    printf("\n\n");
+    
+    
+    node *br = list->branch;
+
+    while( br != NULL){
+        
+        if( br->type == DIR_TYPE){
+            display_recursively(br);
+        }
+        br= br->next;
+
+    }
+    
+   
+
+
+}
+
 
