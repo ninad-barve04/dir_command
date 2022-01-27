@@ -71,9 +71,8 @@ void display_tree(List treelist ,int *lvl) {
     }
     
     *lvl = *lvl +1;
- //   printf("%d\n", *lvl);
     print_tab( *lvl);
-    printf("Name: %s\n", head->name);
+    printf("%s\n", head->name);
    
     head = treelist;
     node *br = head->branch;   
@@ -87,13 +86,12 @@ void display_tree(List treelist ,int *lvl) {
     }
     br = head->branch;
     *lvl = *lvl +1;
- //   printf("%d\n", *lvl);
     while( br != NULL){
        
         if( br->type == FILE_TYPE){
             //printf("Name: %s  %p, %p\n", br->name, br->branch, br->next);
             print_tab( *lvl);
-            printf("Name: %-40s  %10d\n", br->name, br->size);
+            printf("%-40s  %10d\n", br->name, br->size);
         }
         br= br->next;
     }
@@ -112,12 +110,11 @@ void display_recursively(List list) {
         return;
     }
     
-    //printf("Name: %s\n", head->name);
    
     head = list;
     node *hptr = head->branch;
     
-    printf("./%s:\n", list->name);
+    printf(". %s:\n", list->name);
     while (hptr != NULL) {
         printf("%s\t", hptr->name);
         hptr = hptr->next;

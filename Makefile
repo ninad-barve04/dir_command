@@ -13,4 +13,4 @@ linked_list.o: linked_list.c
 
 clean:
 	-rm *.o
-	-rm dircmd
+	-rm dirx
