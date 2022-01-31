@@ -12,12 +12,15 @@ int main(int argc, char *argv[])
     int option;
     int diropt_r = 0;
     int diropt_t = 0;
+    int filetypeopt = 0;
+    int sort_order = 0;
     SORT_OPT diropt_s = SORT_UNDEF;
+    char fextension[32];
     
-	while((option = getopt(argc, argv, "rs:t")) != -1){ //get option from the getopt() method
+	while((option = getopt(argc, argv, "Rrs:tf:")) != -1){ //get option from the getopt() method
         switch(option){
             //For option i, r, l, print that these are options
-            case 'r':
+            case 'R':
                 
                 if (diropt_t == 1) {
                     printf("Invalid option combination\n");
@@ -28,6 +31,9 @@ int main(int argc, char *argv[])
                 }
                 break;
 
+            case 'r':
+                sort_order = 1;
+                break;
             case 't':
                 
                 if (diropt_r == 1) {
@@ -63,24 +69,34 @@ int main(int argc, char *argv[])
             case '?': //used for some unknown options
                 printf("unknown option: %c\n", optopt);
                 break;
+            case 'f':
+                printf("show files by extension\n");
+                filetypeopt = 1;
+                if( optarg){
+                    sprintf(fextension, "%s", optarg);
+                }
+                printf("fie ext %s",fextension);
+                break;
+            default:
+                break;
         }
     }
     
 
     List rootdir = create_node(".");
-    list_recursively(".",&rootdir);
+    list_recursively(".",&rootdir, filetypeopt , fextension);
 
     printf("----------------------\n");
 
     switch (diropt_s) {
         case SORT_NAME:
-            sort_list_name(&rootdir);
+            sort_list_name(&rootdir, sort_order);
             break;
         case SORT_DATE:
-            sort_list_date(&rootdir);
+            sort_list_date(&rootdir, sort_order);
             break;
         case SORT_SIZE:
-            sort_list_size(&rootdir);
+            sort_list_size(&rootdir, sort_order);
             break;
         
         default:

@@ -6,4 +6,4 @@ typedef enum SORT_OPT {
 } SORT_OPT;
 
 
-void list_recursively(char *dirname, List *dirlist);
+void list_recursively(char *dirname, List *dirlist, int filetypeopt, char *filetype);

@@ -225,7 +225,7 @@ void swap_data(node **n1, node **n2) {
 }
 
 
-void sort_list_name(List *list) {
+void sort_list_name(List *list, int sortorder) {
     int i = 0;
     node *num = (*list)->branch;
 
@@ -235,14 +235,22 @@ void sort_list_name(List *list) {
 
         while (temp != NULL) {
             
-            if (strcmp(temp->name, minstr) < 0) {
-                minstr = temp->name;
-                swap_data(&num, &temp);
+            if (sortorder == 1) {
+                if (strcmp(temp->name, minstr) >= 0) {
+                    minstr = temp->name;
+                    swap_data(&num, &temp);
+                }
+            } else {
+                if (strcmp(temp->name, minstr) < 0) {
+                    minstr = temp->name;
+                    swap_data(&num, &temp);
+                }
             }
+            
             temp = temp->next;
             i = i + 1;
         }
-        sort_list_name(&num);
+        sort_list_name(&num, sortorder);
         num = num->next;
     }
 
@@ -250,7 +258,7 @@ void sort_list_name(List *list) {
 }
 
 
-void sort_list_size(List *list) {
+void sort_list_size(List *list, int sortorder) {
     
     node *num = (*list)->branch;
 
@@ -259,22 +267,28 @@ void sort_list_size(List *list) {
         node *temp = num->next;
 
         while (temp != NULL) {
-            
-            if ((temp->size) < minsize) {
-                minsize = temp->size;
-                swap_data(&num, &temp);
+            if (sortorder == 1) {
+                if ((temp->size) >= minsize) {
+                    minsize = temp->size;
+                    swap_data(&num, &temp);
+                }
+            } else {
+                if ((temp->size) < minsize) {
+                    minsize = temp->size;
+                    swap_data(&num, &temp);
+                }
             }
             temp = temp->next;
             
         }
-        sort_list_size(&num);
+        sort_list_size(&num, sortorder);
         num = num->next;
     }
 
     return;
 }
 
-void sort_list_date(List *list) {
+void sort_list_date(List *list, int sortorder) {
     
     node *num = (*list)->branch;
 
@@ -284,15 +298,21 @@ void sort_list_date(List *list) {
 
         while (temp != NULL) {
 
-            
-            if ((temp->create_date) > mindate) {
-                mindate = temp->create_date;
-                swap_data(&num, &temp);
+            if (sortorder == 1) {
+                if ((temp->create_date) <= mindate) {
+                    mindate = temp->create_date;
+                    swap_data(&num, &temp);
+                }
+            } else {
+                if ((temp->create_date) > mindate) {
+                    mindate = temp->create_date;
+                    swap_data(&num, &temp);
+                }
             }
             temp = temp->next;
             
         }
-        sort_list_date(&num);
+        sort_list_date(&num, sortorder);
         num = num->next;
     }
     return;

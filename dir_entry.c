@@ -7,7 +7,7 @@
 #include "linked_list.h"
 #include "dir_entry.h"
 
-void list_recursively(char *dirname, List *dirlist) {
+void list_recursively(char *dirname, List *dirlist, int filetypeopt, char *filetype) {
 
     struct stat file_info;
     
@@ -41,13 +41,24 @@ void list_recursively(char *dirname, List *dirlist) {
             if( file_info.st_mode & S_IXUSR){
                 exetype = 1;
             }
-            branchnode = create_file_node(entity->d_name,file_info.st_size, file_info.st_ctim.tv_sec , exetype);
-            if (tempnode == NULL) {
-                dirhead->branch = branchnode;
-                tempnode = branchnode;
-            } else {
-                tempnode->next = branchnode;
-                tempnode = branchnode;
+            int addfile = (filetypeopt == 0) ? 1 : 0;
+            if( filetypeopt == 1){
+                char *dot = strrchr(entity->d_name, '.');
+
+                if (dot && 0 == strcmp(dot+1,filetype))
+                {
+                    addfile = 1; 
+                }
+            }
+            if( addfile == 1){
+                branchnode = create_file_node(entity->d_name,file_info.st_size, file_info.st_ctim.tv_sec , exetype);
+                if (tempnode == NULL) {
+                    dirhead->branch = branchnode;
+                    tempnode = branchnode;
+                } else {
+                    tempnode->next = branchnode;
+                    tempnode = branchnode;
+                }
             }
         } else {
             
@@ -74,7 +85,7 @@ void list_recursively(char *dirname, List *dirlist) {
                 strcat(path, dirname);
                 strcat(path, "/");
                 strcat(path, entity->d_name);
-                list_recursively(path, &branchnode);
+                list_recursively(path, &branchnode,filetypeopt,filetype);
             }
         }
         entity = readdir(dir);

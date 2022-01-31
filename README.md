@@ -5,16 +5,24 @@ the options will be
 
 Sort
 
--s-name
+-s name
 
--s-size
+-s size
 
--s-date
+-s date
+
+Revese sort order
+
+-r
 
 Recursive
 
--r
+-R
 
 tree
 
 -t
+
+Show only files of particular type (txt/c/pdf)
+
+-f [filetype]

@@ -25,9 +25,9 @@ void display_tree(List treelist, int *lvl);
 void display_recursively(List treelist);
 void display_default(List list);
 void swap_data(node **n1, node **n2);
-void sort_list_name(List *list);
-void sort_list_size(List *list);
-void sort_list_date(List *list);
+void sort_list_name(List *list, int sortorder);
+void sort_list_size(List *list, int sortorder);
+void sort_list_date(List *list, int sortorder);
 
 
 #define ANSI_COLOR_DIR    "\x1b[34m"
