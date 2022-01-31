@@ -1,6 +1,7 @@
 typedef enum ENTRY_TYPE
 {
     FILE_TYPE,
+    EXE_TYPE,
     DIR_TYPE
 } ENTRY_TYPE;
 
@@ -16,9 +17,19 @@ typedef struct node{
 typedef node * List;
 
 node *create_node( char * file_name);
-node *create_file_node(char *file_name, int size, time_t createDate);
+node *create_file_node(char *file_name, int size, time_t createDate, int exetype);
 node *create_directory_node(char *file_name);
 void append_at_next(List *list, node *addnode);
 void append_at_branch(List *list, node *addnode);
 void display_tree(List treelist, int *lvl);
 void display_recursively(List treelist);
+void display_default(List list);
+void swap_data(node **n1, node **n2);
+void sort_list_name(List *list);
+void sort_list_size(List *list);
+void sort_list_date(List *list);
+
+
+#define ANSI_COLOR_DIR    "\x1b[34m"
+#define ANSI_COLOR_EXE    "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"

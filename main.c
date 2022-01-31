@@ -6,17 +6,29 @@
 #include "linked_list.h"
 #include "dir_entry.h"
 
+// int main(int argc, char const *argv[])
+// {
+//     time_t longtime = time(NULL);
+//     struct tm *tmp = localtime(&longtime);
+//     char date[24];
+//     strftime(date, sizeof(date), "%^b %d %H:%M\n", tmp);
+
+//     printf("%s\n", date);
+
+//     return 0;
+     
+//}
 
 
 int main(int argc, char *argv[])
 {
 
-   int option;
-   int diropt_r = 0;
-   int diropt_t = 0;
-   int diropt_s = 0;
-   
-	while((option = getopt(argc, argv, ":rs:t")) != -1){ //get option from the getopt() method
+    int option;
+    int diropt_r = 0;
+    int diropt_t = 0;
+    SORT_OPT diropt_s = SORT_UNDEF;
+    
+	while((option = getopt(argc, argv, "rs:t")) != -1){ //get option from the getopt() method
         switch(option){
             //For option i, r, l, print that these are options
             case 'r':
@@ -43,18 +55,17 @@ int main(int argc, char *argv[])
                 break;
 
             case 's': //here f is used for some file name
-                diropt_s = 1;
+
                 if(strcmp(optarg , "date") == 0) {
-                    diropt_s = 11;
+                    diropt_s = SORT_DATE;
                     printf("show dir sorted by %s\n", optarg);
                 } else if (strcmp(optarg , "size") == 0) {
-                    diropt_s = 12;
+                    diropt_s = SORT_SIZE;
                     printf("show dir sorted by %s\n", optarg);
                 } else if (strcmp(optarg , "name") == 0) {
-                    diropt_s = 13;
+                    diropt_s = SORT_NAME;
                     printf("show dir sorted by %s\n", optarg);
                 } else {
-                    diropt_s = -1;
                     printf("Invalid sort option %s\n", optarg);
                 }
                 break;
@@ -67,13 +78,28 @@ int main(int argc, char *argv[])
                 printf("unknown option: %c\n", optopt);
                 break;
         }
-   }
+    }
     
 
-    List rootdir = create_node("/home/ninad/test2");
-    list_recursively("/home/ninad/test2", &rootdir);
+    List rootdir = create_node(".");
+    list_recursively(".", &rootdir);
 
     printf("----------------------\n");
+
+    switch (diropt_s) {
+        case SORT_NAME:
+            sort_list_name(&rootdir);
+            break;
+        case SORT_DATE:
+            sort_list_date(&rootdir);
+            break;
+        case SORT_SIZE:
+            sort_list_size(&rootdir);
+            break;
+        
+        default:
+            break;
+    }
 
     if (diropt_r == 1) {
         printf("show dir in recursive mode\n");
@@ -82,9 +108,11 @@ int main(int argc, char *argv[])
         printf("show dir in tree mode\n");
         int level = -1;
         display_tree(rootdir, &level);
+    } else {
+        display_default(rootdir);
     }
 
-    //list_dir_content("/home/ninad/test2");
 
+    
     return 0;
-    }
+}

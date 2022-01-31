@@ -11,16 +11,12 @@ void list_recursively(char *dirname, List *dirlist) {
 
     struct stat file_info;
     
-    
-
     node *dirhead = *dirlist;
 
     DIR *dir = opendir(dirname);
     if (dir == NULL) {
         return;
     }
-
-    
 
     struct dirent *entity;
     entity = readdir(dir);
@@ -32,7 +28,7 @@ void list_recursively(char *dirname, List *dirlist) {
 
     while (entity != NULL) {
         if( entity->d_type == DT_REG){
-            char path[100] = {0};
+            char path[1024] = {0};
             strcat(path, dirname);
             strcat(path, "/");
             strcat(path, entity->d_name);
@@ -41,7 +37,11 @@ void list_recursively(char *dirname, List *dirlist) {
             }
             //printf("Size of %s : %ld\n", path, file_info.st_size);
             //printf("%d\t%s\t%ld\n", entity->d_type, entity->d_name, file_info.st_size);
-            branchnode = create_file_node(entity->d_name,file_info.st_size, file_info.st_ctim.tv_sec );
+            int exetype = 0;
+            if( file_info.st_mode & S_IXUSR){
+                exetype = 1;
+            }
+            branchnode = create_file_node(entity->d_name,file_info.st_size, file_info.st_ctim.tv_sec , exetype);
         } else {
             //printf("%d\t%s\n", entity->d_type, entity->d_name);
             if (entity->d_type == DT_DIR && strcmp(entity->d_name, ".") != 0 && strcmp(entity->d_name, "..") != 0) {
@@ -76,7 +76,7 @@ void list_recursively(char *dirname, List *dirlist) {
     return;
 }
 
-
+/*
 void list_dir_content(char *dirname) {
     DIR *dir = opendir(dirname);
     if (dir == NULL) {
@@ -103,4 +103,4 @@ void list_dir_content(char *dirname) {
     closedir(dir);
     return;
 }
-
+*/
