@@ -14,12 +14,13 @@ int main(int argc, char *argv[])
     int diropt_t = 0;
     int filetypeopt = 0;
     int sort_order = 0;
+    int showfiles = 1;
     SORT_OPT diropt_s = SORT_UNDEF;
     char fextension[32];
     
-	while((option = getopt(argc, argv, "Rrs:tf:")) != -1){ //get option from the getopt() method
+	while((option = getopt(argc, argv, "Rrs:tf:F")) != -1){ //get option from the getopt() method
         switch(option){
-            //For option i, r, l, print that these are options
+            
             case 'R':
                 
                 if (diropt_t == 1) {
@@ -33,6 +34,9 @@ int main(int argc, char *argv[])
 
             case 'r':
                 sort_order = 1;
+                break;
+            case 'F':
+                showfiles = 0;
                 break;
             case 't':
                 
@@ -84,7 +88,7 @@ int main(int argc, char *argv[])
     
 
     List rootdir = create_node(".");
-    list_recursively(".",&rootdir, filetypeopt , fextension);
+    list_recursively(".",&rootdir, filetypeopt , fextension, showfiles);
 
     printf("----------------------\n");
 

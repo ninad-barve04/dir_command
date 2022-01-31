@@ -7,7 +7,7 @@
 #include "linked_list.h"
 #include "dir_entry.h"
 
-void list_recursively(char *dirname, List *dirlist, int filetypeopt, char *filetype) {
+void list_recursively(char *dirname, List *dirlist, int filetypeopt, char *filetype, int showfiles) {
 
     struct stat file_info;
     
@@ -28,7 +28,7 @@ void list_recursively(char *dirname, List *dirlist, int filetypeopt, char *filet
 
     while (entity != NULL ) {
 	
-        if( entity->d_type == DT_REG){
+        if( entity->d_type == DT_REG && showfiles == 1){
             char path[1024] = {0};
             strcat(path, dirname);
             strcat(path, "/");
@@ -85,7 +85,7 @@ void list_recursively(char *dirname, List *dirlist, int filetypeopt, char *filet
                 strcat(path, dirname);
                 strcat(path, "/");
                 strcat(path, entity->d_name);
-                list_recursively(path, &branchnode,filetypeopt,filetype);
+                list_recursively(path, &branchnode,filetypeopt,filetype, showfiles);
             }
         }
         entity = readdir(dir);
