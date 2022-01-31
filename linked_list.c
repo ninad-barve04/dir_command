@@ -6,7 +6,6 @@
 #include "linked_list.h"
 
 node *create_node(char *file_name) {
-    //printf("Creating %s\n", file_name);
     node *newnode = (node *)malloc(sizeof(node));
     newnode->name = (char *)malloc(sizeof(char) * (strlen(file_name)+1));
     strcpy(newnode->name, file_name);
@@ -73,7 +72,7 @@ char *get_file_time(time_t longtime) {
 
 void print_tab( int d) {
     for( int i =0; i < d; i++){
-        printf("|-- ");
+        printf("|- ");
     }
     return;
 }
@@ -106,13 +105,13 @@ void display_tree(List treelist ,int *lvl) {
     while( br != NULL){
        
         if( br->type == FILE_TYPE || br->type == EXE_TYPE){
-            //printf("Name: %s  %p, %p\n", br->name, br->branch, br->next);
             print_tab( *lvl);
             char *timestr = get_file_time(br->create_date);
+	        int padd = 40 - 3*(*lvl);
             if( br->type == EXE_TYPE){
-                printf("%s%-40s%s  %s %10d\n",ANSI_COLOR_EXE , br->name, ANSI_COLOR_RESET,timestr, br->size);
+                printf("%s%-*s%s  %s %10d\n",ANSI_COLOR_EXE ,padd, br->name, ANSI_COLOR_RESET,timestr, br->size);
             }else{
-                printf("%-40s  %s %10d\n", br->name,timestr, br->size);
+                printf("%-*s  %s %10d\n",padd, br->name,timestr, br->size);
             }
 
             free(timestr);
@@ -232,7 +231,6 @@ void sort_list_name(List *list) {
 
     while (num != NULL) {
         char *minstr = num->name;
-        //int mindata = num->data;
         node *temp = num->next;
 
         while (temp != NULL) {

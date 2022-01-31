@@ -6,20 +6,6 @@
 #include "linked_list.h"
 #include "dir_entry.h"
 
-// int main(int argc, char const *argv[])
-// {
-//     time_t longtime = time(NULL);
-//     struct tm *tmp = localtime(&longtime);
-//     char date[24];
-//     strftime(date, sizeof(date), "%^b %d %H:%M\n", tmp);
-
-//     printf("%s\n", date);
-
-//     return 0;
-     
-//}
-
-
 int main(int argc, char *argv[])
 {
 
@@ -82,7 +68,7 @@ int main(int argc, char *argv[])
     
 
     List rootdir = create_node(".");
-    list_recursively(".", &rootdir);
+    list_recursively(".",&rootdir);
 
     printf("----------------------\n");
 
@@ -101,7 +87,7 @@ int main(int argc, char *argv[])
             break;
     }
 
-    if (diropt_r == 1) {
+     if (diropt_r == 1) {
         printf("show dir in recursive mode\n");
         display_recursively(rootdir);
     } else if (diropt_t == 1) {
@@ -111,8 +97,6 @@ int main(int argc, char *argv[])
     } else {
         display_default(rootdir);
     }
-
-
     
     return 0;
 }

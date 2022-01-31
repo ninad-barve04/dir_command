@@ -23,10 +23,11 @@ void list_recursively(char *dirname, List *dirlist) {
 
     node *branchnode = NULL;
 
-    //printf("Reading files in : %s\n", dirname);
+    
     node *tempnode = NULL;
 
-    while (entity != NULL) {
+    while (entity != NULL ) {
+	
         if( entity->d_type == DT_REG){
             char path[1024] = {0};
             strcat(path, dirname);
@@ -35,29 +36,37 @@ void list_recursively(char *dirname, List *dirlist) {
             if(stat(path, &file_info) != 0) {
                 return;
             }
-            //printf("Size of %s : %ld\n", path, file_info.st_size);
-            //printf("%d\t%s\t%ld\n", entity->d_type, entity->d_name, file_info.st_size);
+
             int exetype = 0;
             if( file_info.st_mode & S_IXUSR){
                 exetype = 1;
             }
             branchnode = create_file_node(entity->d_name,file_info.st_size, file_info.st_ctim.tv_sec , exetype);
+            if (tempnode == NULL) {
+                dirhead->branch = branchnode;
+                tempnode = branchnode;
+            } else {
+                tempnode->next = branchnode;
+                tempnode = branchnode;
+            }
         } else {
-            //printf("%d\t%s\n", entity->d_type, entity->d_name);
+            
             if (entity->d_type == DT_DIR && strcmp(entity->d_name, ".") != 0 && strcmp(entity->d_name, "..") != 0) {
 
                 branchnode = create_directory_node( entity->d_name);
-            }
-        }
 
-        if (tempnode == NULL) {
-            dirhead->branch = branchnode;
-            tempnode = branchnode;
-        } else {
-            tempnode->next = branchnode;
-            tempnode = branchnode;
-        }
+                if (tempnode == NULL) {
+                    dirhead->branch = branchnode;
+                    tempnode = branchnode;
+                } else {
+                    tempnode->next = branchnode;
+                    tempnode = branchnode;
+                }
+            }
+        
             
+        }
+        
 
         if (entity->d_type == DT_DIR && strcmp(entity->d_name, ".") != 0 && strcmp(entity->d_name, "..") != 0) {
             if (entity->d_name[0] != '.') {
@@ -68,7 +77,6 @@ void list_recursively(char *dirname, List *dirlist) {
                 list_recursively(path, &branchnode);
             }
         }
-        
         entity = readdir(dir);
     }
     
@@ -76,31 +84,3 @@ void list_recursively(char *dirname, List *dirlist) {
     return;
 }
 
-/*
-void list_dir_content(char *dirname) {
-    DIR *dir = opendir(dirname);
-    if (dir == NULL) {
-        return;
-    }
-
-    struct dirent *entity;
-    entity = readdir(dir);
-
-    while (entity != NULL) {
-        if (strcmp(entity->d_name, "..") == 0) {
-            entity = readdir(dir);
-            continue;
-        } else if (strcmp(entity->d_name, ".") == 0) {
-            printf("%s:\n", entity->d_name);
-        } else {
-            printf("%s\t", entity->d_name);
-        }
-        
-        entity = readdir(dir);
-    }
-    printf("\n");
-
-    closedir(dir);
-    return;
-}
-*/
