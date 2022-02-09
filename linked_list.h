@@ -1,3 +1,7 @@
+#define ANSI_COLOR_DIR    "\x1b[34m"
+#define ANSI_COLOR_EXE    "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 typedef enum ENTRY_TYPE
 {
     FILE_TYPE,
@@ -30,6 +34,4 @@ void sort_list_size(List *list, int sortorder);
 void sort_list_date(List *list, int sortorder);
 
 
-#define ANSI_COLOR_DIR    "\x1b[34m"
-#define ANSI_COLOR_EXE    "\x1b[32m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
+

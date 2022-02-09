@@ -139,7 +139,7 @@ void display_recursively(List list) {
     head = list;
     node *hptr = head->branch;
     
-    printf(". %s:\n", list->name);
+    printf(" %s:\n", list->name);
     while (hptr != NULL) {
         if (hptr->type == DIR_TYPE) {
             printf("%s%s%s\t", ANSI_COLOR_DIR, hptr->name, ANSI_COLOR_RESET);

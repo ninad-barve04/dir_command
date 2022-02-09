@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
                 if( optarg){
                     sprintf(fextension, "%s", optarg);
                 }
-                printf("fie ext %s",fextension);
+                printf("file ext %s\n",fextension);
                 break;
             default:
                 break;
