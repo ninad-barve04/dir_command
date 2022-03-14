@@ -1,9 +1,20 @@
 # dir_command
+
 This project is a modified implementation of linux dir command in C.
 
-the options will be 
+Installation:
 
-Sort
+'''sh
+ // Clone this repository in a folder and navigate to it
+ make
+ chmod -rwx ./dirx
+ sudo mv ./dirx /bin/
+
+'''
+
+The options are:
+
+* Sort
 
 -s name
 
@@ -11,18 +22,19 @@ Sort
 
 -s date
 
-Revese sort order
+* Revese sort order
 
 -r
 
-Recursive
+* Recursive
 
 -R
 
-tree
+* Display as tree
 
 -t
 
-Show only files of particular type (txt/c/pdf)
+* Show only files of particular type (txt/c/pdf)
 
 -f [filetype]
+
