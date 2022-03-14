@@ -1,16 +1,16 @@
-# dir_command
+# Linux dir command- dirx
 
 This project is a modified implementation of linux dir command in C.
 
 Installation:
 
-'''sh
+```sh
  // Clone this repository in a folder and navigate to it
  make
  chmod -rwx ./dirx
  sudo mv ./dirx /bin/
 
-'''
+```
 
 The options are:
 
