@@ -16,25 +16,25 @@ The options are:
 
 * Sort
 
--s name
++ -s name
 
--s size
++ -s size
 
--s date
++ -s date
 
 * Revese sort order
 
--r
++ -r
 
 * Recursive
 
--R
++ -R
 
 * Display as tree
 
--t
++ -t
 
 * Show only files of particular type (txt/c/pdf)
 
--f [filetype]
++ -f [filetype]
 
