@@ -12,28 +12,35 @@ Installation:
 
 ```
 
-The options are:
+Running the command:
 
-* Sort
+```sh
+// Show contents of the pwd
+dirx
 
-  * -s name
+// Sorted file display
+dirx -s name
+dirx -s size
+dirx -s date
 
-  * -s size
+// Reverse sorted
+dirx -s name -r
+dirx -s size -r
+dirx -s date -r
 
-  * -s date
+// Recursive display: Shows the contents of the subfolder
+dirx -R <further options>
 
-* Revese sort order
+// Display the contents as a tree (Recursive by default)
+dirx -t <Sorting options>
 
-  * -r
+// Display only particular filetypes (txt, c, pdf)
+dirx <Options> -f __filetype__
 
-* Recursive
+```
 
-  * -R
-
-* Display as tree
-
-  * -t
-
-* Show only files of particular type (txt/c/pdf)
-
-  * -f [filetype]
+This command uses the dirent.h file to get the directories and filenames.
+The names are stored in a tree structure implemented using linked lists with a
+next and a branch pointer.  
+The files in any subfolder are stored in a branch from the main parent folder
+tree.
