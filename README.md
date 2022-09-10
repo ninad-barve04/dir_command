@@ -5,7 +5,7 @@ This project is a modified implementation of linux dir command in C.
 Installation:
 
 ```sh
- // Clone this repository to a folder and navigate there
+ # Clone this repository to a folder and navigate there
  make
  chmod -rwx ./dirx
  sudo mv ./dirx /bin/
@@ -15,26 +15,26 @@ Installation:
 Running the command:
 
 ```sh
-// Show contents of the pwd
+# Show contents of the pwd
 dirx
 
-// Sorted file display
+# Sorted file display
 dirx -s name
 dirx -s size
 dirx -s date
 
-// Reverse sorted
+# Reverse sorted
 dirx -s name -r
 dirx -s size -r
 dirx -s date -r
 
-// Recursive display: Shows the contents of the subfolder
+# Recursive display: Shows the contents of the subfolder
 dirx -R <further options>
 
-// Display the contents as a tree (Recursive by default)
+# Display the contents as a tree (Recursive by default)
 dirx -t <Sorting options>
 
-// Display only particular filetypes (txt, c, pdf)
+# Display only particular filetypes (txt, c, pdf)
 dirx <Options> -f __filetype__
 
 ```
